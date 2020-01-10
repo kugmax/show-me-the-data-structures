@@ -59,22 +59,21 @@ class LruCache(object):
 
     def __move_node_to_head__(self, node):
 
+        if node.is_in_head():  # node already in the head, nothing to do
+            return
+
         if node.is_in_tail():
             self.priority_tail = self.priority_tail.prev  # previous now is oldest
             self.priority_tail.next = None
             if self.priority_tail.prev is None:  # if new tail was head, need to point to new head
                 self.priority_tail.prev = node
 
-            self.__make_node_new_head__(node)
-
         elif node.is_in_middle():
             # connect node.prev with node.next
             node.prev.next = node.next
             node.next.prev = node.prev
 
-            self.__make_node_new_head__(node)
-
-        #  if node is not in the tail and not in the middle then it already in the head, nothing to do
+        self.__make_node_new_head__(node)
 
     def __make_node_new_head__(self, node):
         self.priority_head.prev = node
