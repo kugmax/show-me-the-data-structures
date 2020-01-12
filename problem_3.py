@@ -9,7 +9,7 @@ class Node:
         self.left = None
         self.right = None
 
-    def set_childes(self, node_1, node_2):
+    def set_children(self, node_1, node_2):
         self.letters = node_1.letters + node_2.letters
         self.weight = node_1.weight + node_2.weight
 
@@ -64,7 +64,7 @@ def build_tree(leaf_nodes):
         leaf_2 = get_next_smallest_leaf(leaf_nodes, roots_nodes)
 
         root = Node()
-        root.set_childes(leaf_1, leaf_2)
+        root.set_children(leaf_1, leaf_2)
         roots_nodes.append(root)
 
     return root
