@@ -31,19 +31,23 @@ def is_user_in_group(user, group):
       user(str): user name/id
       group(class:Group): group to check user membership against
     """
+    def loop(group, visited_groups):
+        if group.name in visited_groups:
+            return False
+        else:
+            visited_groups.add(group.name)
 
-    def loop(group):
         if group.is_contain_user(user):
             return True
 
         for g in group.groups:
-            is_in_group = loop(g)
+            is_in_group = loop(g, visited_groups)
             if is_in_group:
                 return True
 
         return False
 
-    return loop(group)
+    return loop(group, set())
 
 
 def assert_equals(expected, actual):
@@ -102,8 +106,25 @@ def when_there_are_many_sub_groups():
     assert_true(is_user_in_group("user_1_2_B", group_1_2))
 
 
+def when_sub_group_in_several_groups():
+    group_1 = Group("group_1")
+    group_1_1 = Group("group_1_1")
+    group_1_2 = Group("group_1_2")
+    group_1_n_1 = Group("group_1_n_1")
+
+    group_1_2.add_group(group_1_n_1)
+    group_1_1.add_group(group_1_n_1)
+
+    group_1.add_group(group_1_1)
+    group_1.add_group(group_1_2)
+
+    assert_true(not is_user_in_group("user", group_1))
+    assert_true(not is_user_in_group("not user", group_1))
+
+
 if __name__ == "__main__":
     when_group_is_empty()
     when_there_is_one_group()
     when_there_are_many_sub_groups()
+    when_sub_group_in_several_groups()
 
