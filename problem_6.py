@@ -37,11 +37,6 @@ class LinkedList:
     def size(self):
         return self.size
 
-# TODO: need traverse to avoid modification of current lists
-# TODO: need to remove duplication
-
-# TODO: need to have in explanation example where allowed to modify current lists and duplication also allowed
-
 
 def union(list_1, list_2):
     added_values = set()
@@ -65,19 +60,36 @@ def union(list_1, list_2):
 
 def intersection(list_1, list_2):
     added_values = set()
-    may_be_added_values = set()
+
+    values_1 = set()
+    values_2 = set()
 
     result = LinkedList()
 
-    current_node_1 = list_1.head
-    current_node_2 = list_2.head
+    current_1 = list_1.head
+    current_2 = list_2.head
 
-    # TODO: need to traverse all list to end to find values in both lists
+    while current_1 is not None or current_2 is not None:
 
-    while True:
-        pass
+        if current_1 is not None:
+            if current_1.value in values_2 and current_1.value not in added_values:
+                added_values.add(current_1.value)
+                result.append(current_1.value)
+
+            values_1.add(current_1.value)
+            current_1 = current_1.next
+
+        if current_2 is not None:
+            if current_2.value in values_1 and current_2.value not in added_values:
+                added_values.add(current_2.value)
+                result.append(current_2.value)
+
+            values_2.add(current_2.value)
+            current_2 = current_2.next
 
     return result
+
+# TODO: need to add more test cases
 
 
 if __name__ == "__main__":
@@ -94,8 +106,8 @@ if __name__ == "__main__":
     for i in element_2:
         linked_list_2.append(i)
 
-    print(union(linked_list_1, linked_list_2))
-    print(intersection(linked_list_1, linked_list_2))
+    print("union: ", union(linked_list_1, linked_list_2))
+    print("intersection: ", intersection(linked_list_1, linked_list_2))
 
     # Test case 2
 
@@ -105,11 +117,13 @@ if __name__ == "__main__":
     element_1 = [3, 2, 4, 35, 6, 65, 6, 4, 3, 23]
     element_2 = [1, 7, 8, 9, 11, 21, 1]
 
+    # intersection_result = []
+
     for i in element_1:
         linked_list_3.append(i)
 
     for i in element_2:
         linked_list_4.append(i)
 
-    print(union(linked_list_3, linked_list_4))
-    print(intersection(linked_list_3, linked_list_4))
+    print("union: ", union(linked_list_3, linked_list_4))
+    print("intersection:", intersection(linked_list_3, linked_list_4))
