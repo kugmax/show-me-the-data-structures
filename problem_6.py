@@ -89,41 +89,56 @@ def intersection(list_1, list_2):
 
     return result
 
-# TODO: need to add more test cases
+
+def assert_equals(expected, actual):
+    assert (expected == actual), "expected {0}, actual {1}".format(expected, actual)
+
+
+def assert_equals_linked_list(expected, head):
+    actual_list = list()
+    while head is not None:
+        actual_list.append(head.value)
+        head = head.next
+
+    assert_equals(expected, actual_list)
+
+
+def assert_union(expected, list_1, list_2):
+    actual = union(to_linked_list(list_1), to_linked_list(list_2))
+
+    assert_equals_linked_list(expected, actual.head)
+
+
+def assert_intersection(expected, list_1, list_2):
+    actual = intersection(to_linked_list(list_1), to_linked_list(list_2))
+
+    assert_equals_linked_list(expected, actual.head)
+
+
+def to_linked_list(list):
+    result = LinkedList()
+
+    for i in list:
+        result.append(i)
+
+    return result
 
 
 if __name__ == "__main__":
-    # Test case 1
-    linked_list_1 = LinkedList()
-    linked_list_2 = LinkedList()
+    assert_union([], [], [])
+    assert_union([1], [1], [])
+    assert_union([1], [], [1])
+    assert_union([1], [1], [1])
+    assert_union([1, 2], [1, 2], [2, 1])
+    assert_union([3, 2, 4, 35, 6, 65, 21, 32, 9, 1, 11],
+                 [3, 2, 4, 35, 6, 65, 6, 4, 3, 21],
+                 [6, 32, 4, 9, 6, 1, 11, 21, 1])
 
-    element_1 = [3, 2, 4, 35, 6, 65, 6, 4, 3, 21]
-    element_2 = [6, 32, 4, 9, 6, 1, 11, 21, 1]
-
-    for i in element_1:
-        linked_list_1.append(i)
-
-    for i in element_2:
-        linked_list_2.append(i)
-
-    print("union: ", union(linked_list_1, linked_list_2))
-    print("intersection: ", intersection(linked_list_1, linked_list_2))
-
-    # Test case 2
-
-    linked_list_3 = LinkedList()
-    linked_list_4 = LinkedList()
-
-    element_1 = [3, 2, 4, 35, 6, 65, 6, 4, 3, 23]
-    element_2 = [1, 7, 8, 9, 11, 21, 1]
-
-    # intersection_result = []
-
-    for i in element_1:
-        linked_list_3.append(i)
-
-    for i in element_2:
-        linked_list_4.append(i)
-
-    print("union: ", union(linked_list_3, linked_list_4))
-    print("intersection:", intersection(linked_list_3, linked_list_4))
+    assert_intersection([], [], [])
+    assert_intersection([], [1], [])
+    assert_intersection([], [], [1])
+    assert_intersection([1], [1], [1])
+    assert_intersection([2, 1], [1, 2], [2, 1])
+    assert_intersection([4, 6, 21],
+                        [3, 2, 4, 35, 6, 65, 6, 4, 3, 21],
+                        [6, 32, 4, 9, 6, 1, 11, 21, 1])
