@@ -33,12 +33,8 @@ To build tree two queues are using `leaf_nodes` and `roots_nodes` (despite the f
  queues, just enough check heads of `leaf_nodes` and `roots_nodes` queues.
    
 #### Time complexity
-
-
-TODO: wrong:
-We have m elements which all must be traversed to build tree - `O(m)`. Also, for each two existed or new built nodes, 
-one more Node will be created and this new sub-nodes also must be traversed - `O(log(m))`. Final time complexity will be 
-`O(m * log(m))`
-
+We have m elements which all must be traversed to build tree - `O(m)`. There is no any additional sorting or traversing,
+just `pop(0)` and `append` operations, with has `O(1)` complexity.
 
 #### Space complexity
+The final tree has 2m-1 nodes where one node has 4 references so complexity is `O(4*(2m - 1))` per unique character.
