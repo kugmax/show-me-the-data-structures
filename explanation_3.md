@@ -38,3 +38,30 @@ just `pop(0)` and `append` operations, with has `O(1)` complexity.
 
 #### Space complexity
 The final tree has 2m-1 nodes where one node has 4 references so complexity is `O(4*(2m - 1))` per unique character.
+
+### 4. Build codes
+
+#### Data structure
+`dic` is chosen to store binary representation for each unique character.
+
+#### Time complexity
+Needs to traverse all tree to calculate binary code - `O(m)`
+
+#### Space complexity
+Result codes store as pair in `dict` object - `O(2m)`
+
+### 5. Encode
+
+#### Data structure
+Final encoded text stored in string object
+
+#### Time complexity
+`O(n)` because needs to traverse all character in sentence and get it binary code from `dict` for `O(1)`
+
+### 6. Huffman decoding
+
+#### Data structure
+Final decoded text stored in string object
+
+#### Time complexity
+To find leaf in binary tree needs `O(log m)`, and it have to be done n times (for each character) - `O(n log m)`
