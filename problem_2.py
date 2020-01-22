@@ -18,8 +18,15 @@ def find_files(suffix, path):
        a list of paths
     """
 
+    if os.path.isfile(path) and path.endswith(suffix):
+        return [path]
+
     def loop(path, accumulator):
+        if not os.path.isdir(path):
+            return accumulator
+
         dirs = os.listdir(path)
+
         for dir in dirs:
             local_path = os.path.join(path, dir)
 
@@ -64,4 +71,24 @@ if __name__ == "__main__":
     assert_equals_list(
         ['testdir/subdir1/a.c'],
         find_files(".c", "testdir/subdir1")  # test specific sub dir
+    )
+
+    assert_equals_list(
+        [],
+        find_files(".c", "not_existed_dir")
+    )
+
+    assert_equals_list(
+        [],
+        find_files(".c", "testdir/not_existed_sub_dir")
+    )
+
+    assert_equals_list(
+        ['testdir/subdir1/a.c'],
+        find_files(".c", "testdir/subdir1/a.c")
+    )
+
+    assert_equals_list(
+        [],
+        find_files(".c", "testdir/subdir1/not_existed.c")
     )

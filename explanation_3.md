@@ -19,7 +19,7 @@ space complexity because needs to store pairs per unique characters.
 The result of sort operation is `list` of `Node` objects in increasing order.  
 
 #### Time complexity
-`sort()` python function is using to sort all unique characters. It's has `O(log(m))` time complexity
+`sort()` python function is using to sort all unique characters. It's has `O(m log(m))` time complexity
 
 #### Space complexity
 `O(4m)` is space complexity because `Node` object has 4 reference per one element. 
