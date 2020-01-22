@@ -30,7 +30,7 @@ Three helper `set` objects are using:
 - `values_2` store unique elements from list_2
 
 #### Time complexity
-`O(max(n, m))` complexity to traverse all lists (which could have different length)
+`O(n*(m+a))` where a is added values list size.
 
 #### Space complexity
 `O( 4(n_unique + m_unique) + 5)` is the space complexity
